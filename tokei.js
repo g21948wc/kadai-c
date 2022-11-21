@@ -1,32 +1,39 @@
-setInterval(function(){
-	const date1 = document.querySelector("#date");
-	const time = document.querySelector("#time");
-	let date = new Date();
-	let month = date.getMonth();
-	let day = date.getDate();
-	const days = ["日","月","火","水","木","金","土",];
-	let hours = date.getHours();
-	let minutes = date.getMinutes();
-	let seconds = date.getSeconds();
-	let day_night = "AM";
+const clock = () => {
+  // 現在の日時・時刻の情報を取得
+  const d = new Date();
 
- if(hours > 12){
-	 day_night = "PM";
-	 hours = hours - 12;
- }
+  // 年を取得
+  let year = d.getFullYear();
+  // 月を取得
+  let month = d.getMonth() + 1;
+  // 日を取得
+  let date = d.getDate();
+  // 曜日を取得
+  let dayNum = d.getDay();
+  const weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  let day = weekday[dayNum];
+  // 時を取得
+  let hour = d.getHours();
+  // 分を取得
+  let min = d.getMinutes();
+  // 秒を取得
+  let sec = d.getSeconds();
 
- if(hours < 10){
-	 hours = "0" + hours;
- }
+  // 1桁の場合は0を足して2桁に
+  month = month < 10 ? "0" + month : month;
+  date = date < 10 ? "0" + date : date;
+  hour = hour < 10 ? "0" + hour : hour;
+  min = min < 10 ? "0" + min : min;
+  sec = sec < 10 ? "0" + sec : sec;
 
- if(minutes < 10){
-	 minutes = "0" + minutes;
- }
+  // 日付・時刻の文字列を作成
+  let today = `${year}.${month}.${date} ${day}`;
+  let time = `${hour}:${min}:${sec}`;
 
- if(seconds < 10){
-	 seconds = "0" + seconds;
- }
- 
- date1.textContent = month + "/" + day + "(" + days[date.getDay()] + ")".
- time.textContent = hours + ":" + minutes + ":" + seconds + " " + day_night;
-});
+  // 文字列を出力
+  document.querySelector(".clock-date").innerText = today;
+  document.querySelector(".clock-time").innerText = time;
+};
+
+// 1秒ごとにclock関数を呼び出す
+setInterval(clock, 1000);
