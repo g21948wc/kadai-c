@@ -1,4 +1,4 @@
-const tokei = () => {
+const clock = () => {
   // 現在の日時・時刻の情報を取得
   const d = new Date();
 
